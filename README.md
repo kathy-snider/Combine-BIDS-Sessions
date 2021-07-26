@@ -6,14 +6,13 @@ Combine-BIDS-Sessions(CBS) can be used.
 
 The user specifies a subject, and CBS uses BIDSLayout
 ([pybids](https://bids-standard.github.io/pybids/)) to find all of the sessions
-for that subject. If the user specifies the session-list argument, the program
-uses that as the list of the sessions to be combined. The sessions will be
-combined in the order specified in the list. If the user does not provide a
+for that subject. If the user specifies the session-list argument, the sessions will 
+be combined in the order specified in the list. If the user does not provide a
 session list, all of the sessions for the subject will be combined, in the order
 determined by BIDSLayout. (Order matters here; see Functional Data below.)
 
 ### Anatomical Data
-All T1w and T2w files found in the list of sessions are copied to the new anat
+All T1w and T2w files found in the list of sessions will be copied to the new anat
 subdirectory. If the user wants to limit T1ws or T2ws to those from a specific
 session, that can be done with the t1-session-label or t2-session-label
 argument. A run number will be added to the name of each file to avoid name
@@ -25,13 +24,12 @@ from the list of sessions are numbered uniquely, all task-nback files are
 numbered uniquely, and so on.) The files for each task are numbered sequentially
 using run numbers, starting at 1. The runs within each task are numbered as they
 are discovered, so this is where the order of the sessions (as noted above)
-matters. The program numbers all of the runs in the second session with numbers
-that are higher than those in the first session and lower than those in the
-third session. Within each original session the runs will be kept in order of
-their runs (by BIDSLayout).
+matters. All of the runs from the second original session will have run numbers 
+that are greater than those from the first original session and less than those
+from the third original session. Within each original session the runs will be
+kept in order (by BIDSLayout).
 
 ### Field Maps
-
 Each field map file found in the list of sessions is assigned a run-number and
 copied to the new fmap subdirectory.
 
@@ -45,11 +43,10 @@ so each subject has its BIDS subdirectories (anat, fmap, and func) directly
 under its sub-LABEL directory.
 
 As each nii file is copied, with its new name to its new location, its sidecar
-json is also and copied with the new basename. Each original file and new file
-are logged to record the relationship.
+json is also copied using the corresponding basename. Each original file and new 
+file are logged to track the relationship.
 
 ## Group Ownership
-
 If the user specifies the owner-group argument, `chgrp`, using that value, will
 be applied as each directory is created. Otherwise the operating system's
 default owner assignment will be left alone.
